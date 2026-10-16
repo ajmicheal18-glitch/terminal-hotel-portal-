@@ -38,3 +38,5 @@ This project was created as a school project to demonstrate how a real hotel can
 1. Clone the repo
 2. Open index.html in browser
 
+
+
