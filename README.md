@@ -1,5 +1,4 @@
-
-# Terminal Hotel Portal
+# My Project (Hotel Portal)
 
 A simple hotel management portal website for booking, room viewing, and hotel services.
 
@@ -32,11 +31,18 @@ This project was created as a school project to demonstrate how a real hotel can
 
 ## Challenges Faced
 - Initial link showed "refused to connect" because Chrome secure DNS was blocking github.io domains
-- Solved by testing on Opera Mini and disabling Secure DNS
+  - Solved by testing on Opera Mini and disabling Secure DNS
+- Uploading the README to GitHub was confusing at first
+  - Solved by opening the repository on GitHub, clicking "Add file" > "Create new file", naming it `README.md`, pasting the text, and clicking "Commit changes"
 
 ## How to Run Locally
 1. Clone the repo
 2. Open index.html in browser
+
+## Author
+**Joseph Micheal Apeh**
+- Email: ajmicheal18@gmail.com
+- Phone: 08071784274
 
 
 
