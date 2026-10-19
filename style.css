@@ -1,0 +1,38 @@
+/* General body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+/* Header / Navigation */
+header {
+  background-color: #0d1b2a;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Room cards */
+.room-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin: 10px;
+  width: 300px;
+}
+
+.room-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+button {
+  background-color: #e6b422;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
