@@ -23,9 +23,11 @@ tailwind.config = {
 <style>
 body { background: #FFFBF0; color: #2B1B12; }
 .gold-gradient { background: linear-gradient(90deg, #5C4A1E 0%, #8B6914 15%, #D4AF37 50%, #8B6914 85%, #5C4A1E 100%); }
-.gold-card { background: #FFFBF0; border: 1.5px solid #E8D5A3; box-shadow: 0 10px 40px rgba(92,74,30,0.08); }
+.gold-card { background: #FFFBF0; border: 1.5px solid #E8D5A3; box-shadow: 0 10px 40px rgba(92,74,30,0.08); transition: all 0.3s ease; }
+.gold-card:hover { box-shadow: 0 15px 50px rgba(92,74,30,0.15); transform: translateY(-2px); }
 .gold-btn { background: linear-gradient(180deg, #F6E8B0 0%, #D4AF37 100%); color: #2B1B12; border: 1px solid #B8962F; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
-.gold-btn:hover { background: linear-gradient(180deg, #FFF2C2 0%, #E5C158 100%); transform: translateY(-1px); }
+.dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; }
+.dropdown-content.open { max-height: 800px; opacity: 1; margin-top: 16px; }
 #bookingDropdown{display:none}
 #bookingDropdown.active{display:block}
 .whatsapp-float{position:fixed;bottom:25px;right:25px;z-index:9999;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(0,0,0,0.3)}
@@ -33,7 +35,6 @@ body { background: #FFFBF0; color: #2B1B12; }
 </head>
 <body class="font-sans antialiased">
 
-<!-- GOLD HEADER - Like your reference image -->
 <header class="gold-gradient sticky top-0 z-50 border-b-[3px] border-[#3B2A12]">
   <div class="max-w-[1280px] mx-auto px-6 md:px-10 h-[72px] flex items-center justify-between">
     <div class="flex items-center gap-3">
@@ -43,116 +44,65 @@ body { background: #FFFBF0; color: #2B1B12; }
         <p class="text-[10px] tracking-[0.32em] text-[#F6E8B0] uppercase mt-[2px]">Hotel Portal • Lokoja</p>
       </div>
     </div>
-    <nav class="hidden md:flex items-center gap-8 text-[11px] tracking-[0.2em] uppercase text-[#FFFBF0]/90 font-medium">
-      <a href="#" class="hover:text-[#F6E8B0]">Rooms</a>
-      <a href="#" class="hover:text-[#F6E8B0]">Dining</a>
-      <a href="#" class="hover:text-[#F6E8B0]">Spa</a>
-      <a href="#" class="hover:text-[#F6E8B0]">Contact</a>
-    </nav>
-    <button onclick="toggleBooking()" class="gold-btn px-6 py-[10px] rounded-full text-[11px] font-bold tracking-[0.18em] uppercase transition-all">Book Now</button>
+    <button onclick="toggleBooking()" class="gold-btn px-6 py-[10px] rounded-full text-[11px] font-bold tracking-[0.18em] uppercase">Book Now</button>
   </div>
 </header>
 
-<!-- BOOKING DROPDOWN - LOKOJA + WHATSAPP ADDED -->
 <div id="bookingDropdown" class="fixed top-[80px] right-6 w-[360px] bg-[#FFFBF0] p-6 rounded-[20px] shadow-2xl z-[60] border border-[#E8D5A3]">
   <div class="flex justify-between items-center mb-4">
     <h3 class="font-serif text-[22px] font-bold">Book Lokoja</h3>
     <button onclick="toggleBooking()" class="text-xl opacity-30">✕</button>
   </div>
-  <label class="text-[9px] tracking-widest font-bold text-[#8B6914]">CHECK-IN</label>
-  <input id="checkin" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 mt-1 bg-white">
-  <label class="text-[9px] tracking-widest font-bold text-[#8B6914]">CHECK-OUT</label>
-  <input id="checkout" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 mt-1 bg-white">
-  <label class="text-[9px] tracking-widest font-bold text-[#8B6914]">GUESTS</label>
-  <select id="guests" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-4 mt-1 bg-white">
-    <option>1 Guest - Deluxe</option>
-    <option>2 Guests - Gold Suite</option>
-    <option>3 Guests - Family</option>
-    <option>4 Guests - Presidential</option>
+  <input id="checkin" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 bg-white">
+  <input id="checkout" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 bg-white">
+  <select id="guests" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-4 bg-white">
+    <option>1 Guest - Deluxe</option><option>2 Guests - Gold Suite</option><option>3 Guests</option>
   </select>
-  <button onclick="bookWhatsApp()" class="w-full gold-btn py-3 rounded-full font-bold text-[12px] tracking-widest uppercase">Confirm on WhatsApp</button>
-  <p class="text-[10px] text-center mt-2 opacity-40">Direct to 08071784274</p>
+  <button onclick="bookWhatsApp()" class="w-full gold-btn py-3 rounded-full font-bold text-[12px]">Confirm on WhatsApp</button>
 </div>
 
-<!-- CREAM HERO WITH GOLD FRAME -->
 <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-8 md:py-12">
   <div class="gold-card rounded-[18px] overflow-hidden p-2 md:p-3">
     <div class="border border-[#E8D5A3] rounded-[12px] overflow-hidden bg-[#FFFBF0]">
-      
-      <!-- Hero Image Area -->
       <div class="relative h-[520px] md:h-[600px] bg-[#2B1B12] overflow-hidden">
         <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-90" />
         <div class="absolute inset-0 bg-gradient-to-t from-[#2B1B12]/80 via-[#2B1B12]/20 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#FFFBF0]/5 via-transparent to-transparent"></div>
-        
-        <!-- Floating Luxury Card -->
         <div class="absolute left-6 md:left-12 bottom-8 md:bottom-12 max-w-[520px]">
           <div class="bg-[#FFFBF0]/95 backdrop-blur-md border border-[#E8D5A3] rounded-[14px] p-7 md:p-9 shadow-[0_20px_60px_rgba(43,27,18,0.25)]">
             <p class="text-[10px] tracking-[0.4em] uppercase text-[#8B6914] font-bold mb-3">Est. Luxury 2026 • Lokoja</p>
             <h2 class="font-serif text-[38px] md:text-[54px] leading-[0.9] font-bold text-[#2B1B12]">A Golden<br/>Stay Awaits</h2>
-            <p class="mt-4 text-[14px] leading-[1.7] text-[#5C4A1E]/80">Experience cream-soft luxury wrapped in gold. Your private portal to timeless elegance at Terminal Lokoja, Confluence City.</p>
+            <p class="mt-4 text-[14px] leading-[1.7] text-[#5C4A1E]/80">Experience cream-soft luxury wrapped in gold at Terminal Lokoja, Confluence City.</p>
             <div class="mt-6 flex gap-3">
               <button onclick="toggleBooking()" class="gold-btn px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase">Explore Rooms</button>
-              <button onclick="window.open('https://wa.me/2348071784274','_blank')" class="px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase border border-[#E8D5A3] text-[#5C4A1E] bg-white/50">Virtual Tour</button>
+              <button class="px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase border border-[#E8D5A3] bg-white/50">Virtual Tour</button>
             </div>
           </div>
         </div>
-
-        <!-- Top Gold Ornament -->
-        <div class="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
-          <div class="w-12 h-[1px] bg-[#D4AF37]"></div>
-          <div class="w-2 h-2 rotate-45 bg-[#D4AF37] border border-[#FFFBF0]"></div>
-          <div class="w-12 h-[1px] bg-[#D4AF37]"></div>
-        </div>
       </div>
-
-      <!-- Booking Bar - Gold & Cream -->
       <div class="bg-[#FFFBF0] border-t border-[#E8D5A3] px-6 md:px-10 py-5 flex flex-wrap gap-4 items-center justify-between">
-        <div class="flex gap-8">
-          <div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Check-In</p><p class="font-serif text-[18px] font-semibold text-[#2B1B12]">24 Oct 2026</p></div>
-          <div class="w-[1px] bg-[#E8D5A3]"></div>
-          <div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Guests</p><p class="font-serif text-[18px] font-semibold text-[#2B1B12]">2 Adults</p></div>
-          <div class="w-[1px] bg-[#E8D5A3] hidden md:block"></div>
-          <div class="hidden md:block"><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Location</p><p class="font-serif text-[18px] font-semibold text-[#2B1B12]">Lokoja • Kogi</p></div>
-        </div>
+        <div class="flex gap-8"><div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Check-In</p><p class="font-serif text-[18px] font-semibold">24 Oct 2026</p></div><div class="w-[1px] bg-[#E8D5A3]"></div><div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Location</p><p class="font-serif text-[18px] font-semibold">Lokoja • Kogi</p></div></div>
         <button onclick="toggleBooking()" class="gold-btn px-8 py-3 rounded-full text-[12px] font-bold tracking-[0.18em] uppercase">Check Availability →</button>
       </div>
     </div>
   </div>
 
-  <!-- 3 Features in Cream -->
-  <div class="grid md:grid-cols-3 gap-4 mt-6">
-    <div class="gold-card rounded-[12px] p-6"><p class="text-[10px] tracking-[0.3em] uppercase text-[#8B6914] font-bold">01 — Rooms</p><h3 class="font-serif text-[22px] font-bold mt-2">Signature Suites Lokoja</h3><p class="text-[13px] text-[#5C4A1E]/70 mt-2 leading-relaxed">Velvet cream walls, gold trims, espresso wood at Confluence.</p></div>
-    <div class="gold-card rounded-[12px] p-6"><p class="text-[10px] tracking-[0.3em] uppercase text-[#8B6914] font-bold">02 — Dining</p><h3 class="font-serif text-[22px] font-bold mt-2">Golden Table</h3><p class="text-[13px] text-[#5C4A1E]/70 mt-2 leading-relaxed">Fine dining under warm gold light in Lokoja.</p></div>
-    <div class="gold-card rounded-[12px] p-6"><p class="text-[10px] tracking-[0.3em] uppercase text-[#8B6914] font-bold">03 — Portal</p><h3 class="font-serif text-[22px] font-bold mt-2">Guest Portal</h3><p class="text-[13px] text-[#5C4A1E]/70 mt-2 leading-relaxed">Your bookings, keys, and WhatsApp 08071784274.</p></div>
+  <!-- 01 ROOMS - WITH REAL DROPDOWN -->
+  <div class="gold-card rounded-[16px] p-6 mt-6">
+    <div class="flex justify-between items-start">
+      <div class="flex-1">
+        <p class="text-[10px] tracking-[0.3em] uppercase text-[#8B6914] font-bold">01 — Rooms</p>
+        <h3 class="font-serif text-[24px] font-bold mt-2">Signature Suites Lokoja</h3>
+        <p class="text-[13px] text-[#5C4A1E]/70 mt-2 leading-relaxed">Velvet cream walls, gold trims, espresso wood at Confluence.</p>
+      </div>
+      <button onclick="toggleDrop('roomsDrop', this)" class="ml-4 gold-btn px-5 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase flex items-center gap-2">View <span class="text-[14px]">▼</span></button>
+    </div>
+    <div id="roomsDrop" class="dropdown-content">
+      <div class="border-t border-[#E8D5A3] pt-5 grid md:grid-cols-3 gap-4">
+        <div class="bg-white border border-[#E8D5A3] rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm">Deluxe Room</p><p class="text-[11px] opacity-60">City view • AC • WiFi • Breakfast</p><p class="mt-2 font-bold text-[#8B6914]">₦45,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full gold-btn py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
+        <div class="bg-[#2B1B12] text-white rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm text-[#F6E8B0]">Gold Suite ⭐ Popular</p><p class="text-[11px] opacity-60">River view • Lounge • Minibar</p><p class="mt-2 font-bold text-[#D4AF37]">₦85,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full bg-[#D4AF37] text-black py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
+        <div class="bg-white border border-[#E8D5A3] rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm">Presidential</p><p class="text-[11px] opacity-60">Terrace • Jacuzzi • Private dining</p><p class="mt-2 font-bold text-[#8B6914]">₦150,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full gold-btn py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
+      </div>
+    </div>
   </div>
-</main>
 
-<footer class="mt-10 border-t border-[#E8D5A3] py-8 text-center">
-  <p class="font-serif tracking-[0.2em] uppercase text-[11px] text-[#8B6914]">Terminal Hotel Lokoja — Plot 123, Ganaja Road — 08071784274 — Gold & Cream Edition</p>
-</footer>
-
-<!-- WHATSAPP FLOAT - YOUR NUMBER -->
-<a href="https://wa.me/2348071784274?text=Hello%20Terminal%20Hotel%20Lokoja%2C%20I%20want%20to%20book%20a%20room" class="whatsapp-float" target="_blank">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.05 4.94A9.91 9.91 0 0 0 12.04 2C6.52 2 2.04 6.48 2.04 12a9.9 9.9 0 0 0 1.48 5.19L2 22l4.96-1.5A9.9 9.9 0 0 0 12.04 22c5.52 0 10-4.48 10-10a9.9 9.9 0 0 0-2.99-7.06zM12.04 20a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-2.94.89.9-2.87-.2-.3A8.18 8.18 0 0 1 3.84 12c0-4.54 3.7-8.24 8.2-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.42 5.82c0 4.54-3.7 8-8.22 8zm4.5-6.15c-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.57.13-.17.25-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.39.11-.52.11-.11.25-.3.38-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.57-1.37-.78-1.88-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.19.21-.58.21-1.08.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
-</a>
-
-<script>
-function toggleBooking(){
-  document.getElementById('bookingDropdown').classList.toggle('active');
-  const today=new Date().toISOString().split('T')[0];
-  const tomorrow=new Date(Date.now()+86400000).toISOString().split('T')[0];
-  document.getElementById('checkin').value=today;
-  document.getElementById('checkout').value=tomorrow;
-}
-function bookWhatsApp(){
-  const ci=document.getElementById('checkin').value;
-  const co=document.getElementById('checkout').value;
-  const g=document.getElementById('guests').value;
-  const msg=`Hello Terminal Hotel Lokoja!%0A%0AI want to book:%0A📅 Check-in: ${ci}%0A📅 Check-out: ${co}%0A👥 ${g}%0A%0APlease confirm availability.`;
-  window.open(`https://wa.me/2348071784274?text=${msg}`,'_blank');
-}
-</script>
-
-</body>
-</html>
+ 
