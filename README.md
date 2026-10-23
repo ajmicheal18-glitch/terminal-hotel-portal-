@@ -1,48 +1,50 @@
-# My Project (Hotel Portal)
+# Terminal Hotel Portal
 
-A simple hotel management portal website for booking, room viewing, and hotel services.
+A simple hotel website for booking and viewing rooms.
 
-**Live Website:** https://ajmicheal18-glitch.github.io/terminal-hotel-portal-/
+**Live Website:** https://terminal-hotel-portal.vercel.app
+**GitHub Page:** https://ajmicheal18-glitch.github.io/terminal-hotel-portal-/
 
-## Project Description
-This project was created as a school project to demonstrate how a real hotel can have an online portal where customers can view rooms, check prices, and make bookings.
+## Description
+School project to show how a real hotel can have an online portal. Customers can view rooms, check prices, and book on WhatsApp.
 
 ## Features
-- Home page with hotel introduction
-- Rooms listing with prices
-- Booking form
-- Contact section
-- Responsive design (works on phone and laptop)
+- Home page with hotel lobby
+- Rooms with prices (Gold Suite ₦85k, Deluxe ₦45k, Presidential ₦150k)
+- Booking dropdown form
+- WhatsApp booking to 08071784274
+- Floating WhatsApp button
+- Works on phone and laptop
 
 ## Technologies Used
-- HTML5
-- CSS3
-- JavaScript
-- Git & GitHub for version control
-- GitHub Pages for hosting/deployment
+- HTML, CSS, JavaScript
+- Tailwind CSS
+- GitHub and Vercel for hosting
 
 ## How I Built It
-1. I wrote the code in VS Code (index.html, style.css)
-2. I created a GitHub repository named terminal-hotel-portal-
-3. I pushed my code to the main branch using git push
-4. I enabled GitHub Pages from Settings > Pages > Deploy from main branch
-5. GitHub Actions built the site (pages-build-deployment) - it took 47 seconds
-6. The site went live on Opera Mini and other browsers
+1. Wrote code in VS Code
+2. Created GitHub repository
+3. Pushed code to main branch
+4. Enabled GitHub Pages and Vercel
+5. Site went live
 
-## Challenges Faced
-- Initial link showed "refused to connect" because Chrome secure DNS was blocking github.io domains
-  - Solved by testing on Opera Mini and disabling Secure DNS
-- Uploading the README to GitHub was confusing at first
-  - Solved by opening the repository on GitHub, clicking "Add file" > "Create new file", naming it `README.md`, pasting the text, and clicking "Commit changes"
+## Challenges
+- Chrome blocked github.io link — tested on Opera Mini
+- GitHub app hid edit icon — used Chrome Desktop Site
 
-## How to Run Locally
-1. Clone the repo
-2. Open index.html in browser
+## Value to the Community
+- Helps small hotels in Lokoja go online without paying developers
+- Customers in Lokoja can book rooms anytime without visiting hotel
+- Reduces booking stress — confirm on WhatsApp in 1 click
+- Creates job for youth in Lokoja to manage online bookings
+- Can be copied by other hotels, shops, and schools in Lokoja community
+- Promotes digital skills for students in Lokoja
+
+## How to Run
+Clone repo and open index.html
 
 ## Author
-**Joseph Micheal Apeh**
-- Email: ajmicheal18@gmail.com
-- Phone: 08071784274
-
-
-
+Joseph Micheal Apeh
+Email: ajmicheal18@gmail.com
+Phone: 08071784274
+Location: Lokoja, Kogi State
