@@ -1,108 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Terminal Hotel Lokoja - Luxury Gold</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        gold: { light: '#F6E8B0', DEFAULT: '#D4AF37', dark: '#8B6914', deeper: '#5C4A1E' },
-        cream: { DEFAULT: '#FFFBF0', dark: '#FFF6D5', border: '#E8D5A3' },
-        espresso: '#2B1B12'
-      },
-      fontFamily: { serif: ['Cormorant Garamond', 'serif'], sans: ['Inter', 'sans-serif'] }
-    }
-  }
-}
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Portal</title>
 <style>
-body { background: #FFFBF0; color: #2B1B12; }
-.gold-gradient { background: linear-gradient(90deg, #5C4A1E 0%, #8B6914 15%, #D4AF37 50%, #8B6914 85%, #5C4A1E 100%); }
-.gold-card { background: #FFFBF0; border: 1.5px solid #E8D5A3; box-shadow: 0 10px 40px rgba(92,74,30,0.08); transition: all 0.3s ease; }
-.gold-card:hover { box-shadow: 0 15px 50px rgba(92,74,30,0.15); transform: translateY(-2px); }
-.gold-btn { background: linear-gradient(180deg, #F6E8B0 0%, #D4AF37 100%); color: #2B1B12; border: 1px solid #B8962F; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
-.dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; }
-.dropdown-content.open { max-height: 800px; opacity: 1; margin-top: 16px; }
-#bookingDropdown{display:none}
-#bookingDropdown.active{display:block}
-.whatsapp-float{position:fixed;bottom:25px;right:25px;z-index:9999;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+  /* ===== Theme (change colours here) ===== */
+  :root {
+    --primary: #13203d;
+    --primary-dark: #0c1528;
+    --accent: #4a6fa5;
+    --bg: #f2f6fb;
+    --card: #ffffff;
+    --text: #1f2d45;
+    --muted: #5b6b85;
+    --danger: #e11d48;
+    --success: #059669;
+    --radius: 16px;
+    --shadow: 0 10px 25px -8px rgba(19, 32, 61, 0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Roboto, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; width: 100%; max-width: 1150px; margin: 0 auto; padding: 28px 18px; }
+  h1, h2, h3 { line-height: 1.25; font-family: "Noto Serif", Georgia, "Times New Roman", serif; }
+  h2 { font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 6px; }
+  h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  p { margin-bottom: 8px; }
+  .muted { color: var(--muted); }
+  .section { margin-top: 38px; }
+
+  /* ===== Navigation (Flexbox) ===== */
+  .navbar {
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    box-shadow: 0 4px 14px rgba(19, 32, 61, 0.35);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .logo { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.3px; }
+  .nav-links { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .nav-links a, .nav-links button {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: transparent;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-links a:hover, .nav-links button:hover,
+  .nav-links a.active { background: rgba(255, 255, 255, 0.2); }
+  .nav-links a.active { font-weight: 600; }
+
+  /* Dropdown menu */
+  .dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    list-style: none;
+    padding: 6px;
+  }
+  .dropdown-menu.open { display: block; }
+  .dropdown-menu a { display: block; color: var(--text); border-radius: 8px; }
+  .dropdown-menu a:hover { background: var(--bg); }
+
+  .logout-btn { background: rgba(255, 255, 255, 0.15) !important; }
+
+  /* ===== Hero (home) ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 48px 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .hero h1 { font-size: 2.2rem; margin-bottom: 10px; }
+  .hero p { font-size: 1.1rem; opacity: 0.95; }
+
+  /* ===== Cards (CSS Grid) ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 18px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    border: 1px solid #e2e8f0;
+  }
+  .card .icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+  .panel { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06); border: 1px solid #e2e8f0; max-width: 560px; }
+  .room-price { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+  .total { font-weight: 700; color: var(--success); }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #e0e7ff;
+    color: var(--primary-dark);
+    text-transform: capitalize;
+  }
+  .pill.green { background: #d1fae5; color: var(--success); }
+  .pill.amber { background: #fef3c7; color: #92400e; }
+  .pill.red { background: #ffe4e6; color: var(--danger); }
+
+  /* ===== Forms ===== */
+  .form-row { margin-bottom: 16px; }
+  .form-row label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+  .form-row input, .form-row select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    font: inherit;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-row input:focus, .form-row select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(19, 32, 61, 0.15);
+  }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 14px -6px rgba(19, 32, 61, 0.6);
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.secondary { background: #64748b; box-shadow: none; }
+  .btn.danger { background: var(--danger); box-shadow: none; }
+  .btn.small { padding: 7px 12px; font-size: 0.9rem; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .msg { margin-top: 12px; font-weight: 600; min-height: 1.2em; }
+  .msg.error { color: var(--danger); }
+  .msg.ok { color: var(--success); }
+
+  /* ===== Tables ===== */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius); background: var(--card); box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; text-align: left; white-space: nowrap; }
+  th { background: #eef2ff; color: var(--primary-dark); font-size: 0.9rem; }
+  tr:last-child td { border-bottom: none; }
+
+  .stat { font-size: 1.9rem; font-weight: 800; color: var(--primary); }
+  .stat-label { color: var(--muted); font-size: 0.95rem; }
+
+  .bookings-grid .card h3 { font-size: 1.15rem; }
+  .hidden-section { display: none; }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    padding: 22px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    border-top: 1px solid #e2e8f0;
+    background: #fff;
+  }
+
+  /* ===== Phones ===== */
+  @media (max-width: 640px) {
+    .navbar { flex-direction: column; align-items: stretch; padding: 12px 14px; }
+    .nav-links { justify-content: center; }
+    .dropdown-menu { position: static; box-shadow: none; margin-top: 6px; }
+    .hero { padding: 34px 18px; }
+    .hero h1 { font-size: 1.7rem; }
+    .row-2 { grid-template-columns: 1fr; }
+    .btn { width: 100%; text-align: center; }
+    .btn-row .btn { width: auto; }
+    main { padding: 20px 14px; }
+  }
+
+  /* ===== Visual polish ===== */
+  ::selection { background: var(--accent); color: #fff; }
+  html { scroll-behavior: smooth; }
+
+  /* Gentle fade-in when a page opens */
+  .view:not([hidden]) { animation: fadeUp 0.45s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero with soft decorative circles */
+  .hero { position: relative; overflow: hidden; isolation: isolate; }
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    z-index: -1;
+  }
+  .hero::before { width: 260px; height: 260px; top: -90px; right: -60px; }
+  .hero::after  { width: 180px; height: 180px; bottom: -70px; left: -40px; }
+
+  /* Cards lift on hover and carry a coloured top edge */
+  .card {
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    left: 22px; right: 22px; top: 0;
+    height: 4px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    opacity: 0.85;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px -14px rgba(19, 32, 61, 0.35);
+  }
+
+  /* Buttons: clearer hover and press feedback */
+  .btn { transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease; }
+  .btn:hover { filter: brightness(1.08); box-shadow: 0 10px 20px -8px rgba(19, 32, 61, 0.55); }
+  .btn:active { transform: translateY(1px) scale(0.98); }
+  .btn.secondary:hover, .btn.danger:hover { filter: brightness(1.1); }
+
+  /* Menu links */
+  .nav-links a, .nav-links button { transition: background 0.2s ease, color 0.2s ease; }
+  .nav-links a.active { box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
+
+  /* Form focus is easy to see */
+  .form-row input:focus, .form-row select:focus { outline: none; }
+
+  /* Tables */
+  table tr { transition: background 0.15s ease; }
+  table tbody tr:hover td, table tr:hover td { background: #f8fafc; }
+  .table-wrap table tr:first-child th:first-child { border-top-left-radius: var(--radius); }
+  .table-wrap table tr:first-child th:last-child { border-top-right-radius: var(--radius); }
+
+  /* Status pills get a small dot */
+  .pill::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 6px;
+    vertical-align: middle;
+    opacity: 0.8;
+  }
+
+  /* Messages slide in */
+  .msg:not(:empty) { animation: fadeUp 0.3s ease both; }
+
+  /* Footer */
+  footer { letter-spacing: 0.2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  /* ===== Price dropdown on room cards ===== */
+  .price-dropdown {
+    margin-top: 10px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .price-dropdown summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .price-dropdown summary::-webkit-details-marker { display: none; }
+  .price-dropdown summary::after { content: "▾"; transition: transform 0.2s ease; }
+  .price-dropdown[open] summary::after { transform: rotate(180deg); }
+  .price-dropdown[open] summary { border-bottom: 1px solid #e2e8f0; }
+  .price-body { padding: 10px 12px; }
+  .price-body p { margin-bottom: 4px; }
+
+  /* ===== Printable receipt ===== */
+  .receipt { font-family: Roboto, Arial, sans-serif; }
+  .receipt-head { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 12px; }
+  .receipt-head h2 { font-size: 1.4rem; color: var(--primary); }
+  .receipt-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+  .receipt-table td, .receipt-table th { padding: 7px 4px; border-bottom: 1px dashed #cbd5e1; text-align: left; }
+  .receipt-table td:last-child, .receipt-table th:last-child { text-align: right; }
+  .receipt-table th { background: none; color: var(--muted); font-size: 0.85rem; }
+  .receipt-foot { text-align: center; margin-top: 10px; }
+
+  @media print {
+    body * { visibility: hidden; }
+    #receiptPanel, #receiptPanel * { visibility: visible; }
+    #receiptPanel { position: absolute; left: 0; top: 0; width: 100%; max-width: none !important; margin: 0 !important; box-shadow: none !important; border: none !important; }
+    .no-print { display: none !important; }
+  }
 </style>
-</head>
-<body class="font-sans antialiased">
-
-<header class="gold-gradient sticky top-0 z-50 border-b-[3px] border-[#3B2A12]">
-  <div class="max-w-[1280px] mx-auto px-6 md:px-10 h-[72px] flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-[#FFFBF0] rounded-[6px] flex items-center justify-center font-serif font-bold text-[18px] text-[#5C4A1E] border border-[#E8D5A3]">T</div>
-      <div>
-        <h1 class="font-serif font-bold text-[22px] leading-none tracking-[0.18em] text-[#FFFBF0] uppercase">Terminal</h1>
-        <p class="text-[10px] tracking-[0.32em] text-[#F6E8B0] uppercase mt-[2px]">Hotel Portal • Lokoja</p>
-      </div>
-    </div>
-    <button onclick="toggleBooking()" class="gold-btn px-6 py-[10px] rounded-full text-[11px] font-bold tracking-[0.18em] uppercase">Book Now</button>
-  </div>
-</header>
-
-<div id="bookingDropdown" class="fixed top-[80px] right-6 w-[360px] bg-[#FFFBF0] p-6 rounded-[20px] shadow-2xl z-[60] border border-[#E8D5A3]">
-  <div class="flex justify-between items-center mb-4">
-    <h3 class="font-serif text-[22px] font-bold">Book Lokoja</h3>
-    <button onclick="toggleBooking()" class="text-xl opacity-30">✕</button>
-  </div>
-  <input id="checkin" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 bg-white">
-  <input id="checkout" type="date" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-3 bg-white">
-  <select id="guests" class="w-full border border-[#E8D5A3] p-3 rounded-xl mb-4 bg-white">
-    <option>1 Guest - Deluxe</option><option>2 Guests - Gold Suite</option><option>3 Guests</option>
-  </select>
-  <button onclick="bookWhatsApp()" class="w-full gold-btn py-3 rounded-full font-bold text-[12px]">Confirm on WhatsApp</button>
-</div>
-
-<main class="max-w-[1280px] mx-auto px-4 md:px-8 py-8 md:py-12">
-  <div class="gold-card rounded-[18px] overflow-hidden p-2 md:p-3">
-    <div class="border border-[#E8D5A3] rounded-[12px] overflow-hidden bg-[#FFFBF0]">
-      <div class="relative h-[520px] md:h-[600px] bg-[#2B1B12] overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-90" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#2B1B12]/80 via-[#2B1B12]/20 to-transparent"></div>
-        <div class="absolute left-6 md:left-12 bottom-8 md:bottom-12 max-w-[520px]">
-          <div class="bg-[#FFFBF0]/95 backdrop-blur-md border border-[#E8D5A3] rounded-[14px] p-7 md:p-9 shadow-[0_20px_60px_rgba(43,27,18,0.25)]">
-            <p class="text-[10px] tracking-[0.4em] uppercase text-[#8B6914] font-bold mb-3">Est. Luxury 2026 • Lokoja</p>
-            <h2 class="font-serif text-[38px] md:text-[54px] leading-[0.9] font-bold text-[#2B1B12]">A Golden<br/>Stay Awaits</h2>
-            <p class="mt-4 text-[14px] leading-[1.7] text-[#5C4A1E]/80">Experience cream-soft luxury wrapped in gold at Terminal Lokoja, Confluence City.</p>
-            <div class="mt-6 flex gap-3">
-              <button onclick="toggleBooking()" class="gold-btn px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase">Explore Rooms</button>
-              <button class="px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase border border-[#E8D5A3] bg-white/50">Virtual Tour</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-[#FFFBF0] border-t border-[#E8D5A3] px-6 md:px-10 py-5 flex flex-wrap gap-4 items-center justify-between">
-        <div class="flex gap-8"><div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Check-In</p><p class="font-serif text-[18px] font-semibold">24 Oct 2026</p></div><div class="w-[1px] bg-[#E8D5A3]"></div><div><p class="text-[9px] tracking-[0.3em] uppercase text-[#8B6914]">Location</p><p class="font-serif text-[18px] font-semibold">Lokoja • Kogi</p></div></div>
-        <button onclick="toggleBooking()" class="gold-btn px-8 py-3 rounded-full text-[12px] font-bold tracking-[0.18em] uppercase">Check Availability →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 01 ROOMS - WITH REAL DROPDOWN -->
-  <div class="gold-card rounded-[16px] p-6 mt-6">
-    <div class="flex justify-between items-start">
-      <div class="flex-1">
-        <p class="text-[10px] tracking-[0.3em] uppercase text-[#8B6914] font-bold">01 — Rooms</p>
-        <h3 class="font-serif text-[24px] font-bold mt-2">Signature Suites Lokoja</h3>
-        <p class="text-[13px] text-[#5C4A1E]/70 mt-2 leading-relaxed">Velvet cream walls, gold trims, espresso wood at Confluence.</p>
-      </div>
-      <button onclick="toggleDrop('roomsDrop', this)" class="ml-4 gold-btn px-5 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase flex items-center gap-2">View <span class="text-[14px]">▼</span></button>
-    </div>
-    <div id="roomsDrop" class="dropdown-content">
-      <div class="border-t border-[#E8D5A3] pt-5 grid md:grid-cols-3 gap-4">
-        <div class="bg-white border border-[#E8D5A3] rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm">Deluxe Room</p><p class="text-[11px] opacity-60">City view • AC • WiFi • Breakfast</p><p class="mt-2 font-bold text-[#8B6914]">₦45,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full gold-btn py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
-        <div class="bg-[#2B1B12] text-white rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm text-[#F6E8B0]">Gold Suite ⭐ Popular</p><p class="text-[11px] opacity-60">River view • Lounge • Minibar</p><p class="mt-2 font-bold text-[#D4AF37]">₦85,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full bg-[#D4AF37] text-black py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
-        <div class="bg-white border border-[#E8D5A3] rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" class="h-32 w-full object-cover"><div class="p-4"><p class="font-bold text-sm">Presidential</p><p class="text-[11px] opacity-60">Terrace • Jacuzzi • Private dining</p><p class="mt-2 font-bold text-[#8B6914]">₦150,000 / night</p><button onclick="bookWhatsApp()" class="mt-3 w-full gold-btn py-2 rounded-full text-[10px] font-bold">BOOK NOW</button></div></div>
-      </div>
-    </div>
-  </div>
-
- 
