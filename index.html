@@ -1,110 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Hotel Portal</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .report-table { width: 100%; border-collapse: collapse; background: var(--white); }
-    .report-table th, .report-table td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
-    .report-table th { background: var(--primary); color: var(--white); }
-    .big { font-size: 1.6rem; font-weight: bold; color: var(--primary); }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terminal Hotel Portal - Luxury Gold</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold: { light: '#F6E8B0', DEFAULT: '#D4AF37', dark: '#8B6914', deeper: '#5C4A1E' },
+        cream: { DEFAULT: '#FFFBF0', dark: '#FFF6D5', border: '#E8D5A3' },
+        espresso: '#2B1B12'
+      },
+      fontFamily: { serif: ['Cormorant Garamond', 'serif'], sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+body { background: #FFFBF0; color: #2B1B12; }
+.gold-gradient { background: linear-gradient(90deg, #5C4A1E 0%, #8B6914 15%, #D4AF37 50%, #8B6914 85%, #5C4A1E 100%); }
+.gold-card { background: #FFFBF0; border: 1.5px solid #E8D5A3; box-shadow: 0 10px 40px rgba(92,74,30,0.08); }
+.gold-btn { background: linear-gradient(180deg, #F6E8B0 0%, #D4AF37 100%); color: #2B1B12; border: 1px solid #B8962F; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
+.gold-btn:hover { background: linear-gradient(180deg, #FFF2C2 0%, #E5C158 100%); transform: translateY(-1px); }
+</style>
 </head>
-<body>
-<nav class="navbar">
-  <div class="logo">Hotel Portal</div>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="booking.html">Book a Room</a></li>
-    <li><a href="reception.html">Reception</a></li>
-    <li class="dropdown">
-      <button class="dropdown-toggle">Admin ▾</button>
-      <ul class="dropdown-menu">
-        <li><a href="admin.html#rooms">Manage Rooms</a></li>
-        <li><a href="admin.html#sales">Sales</a></li>
-        <li><a href="admin.html#reports">Reports</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+<body class="font-sans antialiased">
 
-<header class="page-header">
-  <h1>Admin Dashboard</h1>
-  <p>Rooms, sales and occupancy</p>
+<!-- GOLD HEADER - Like your reference image -->
+<header class="gold-gradient sticky top-0 z-50 border-b-[3px] border-[#3B2A12]">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10 h-[72px] flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 bg-[#FFFBF0] rounded-[6px] flex items-center justify-center font-serif font-bold text-[18px] text-[#5C4A1E] border border-[#E8D5A3]">T</div>
+      <div>
+        <h1 class="font-serif font-bold text-[22px] leading-none tracking-[0.18em] text-[#FFFBF0] uppercase">Terminal</h1>
+        <p class="text-[10px] tracking-[0.32em] text-[#F6E8B0] uppercase mt-[2px]">Hotel Portal</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-[11px] tracking-[0.2em] uppercase text-[#FFFBF0]/90 font-medium">
+      <a href="#" class="hover:text-[#F6E8B0]">Rooms</a>
+      <a href="#" class="hover:text-[#F6E8B0]">Dining</a>
+      <a href="#" class="hover:text-[#F6E8B0]">Spa</a>
+      <a href="#" class="hover:text-[#F6E8B0]">Contact</a>
+    </nav>
+    <button class="gold-btn px-6 py-[10px] rounded-full text-[11px] font-bold tracking-[0.18em] uppercase transition-all">Book Now</button>
+  </div>
 </header>
 
-<main>
-  <h2 id="rooms">Manage Rooms</h2>
+<!-- CREAM HERO WITH GOLD FRAME -->
+<main class="max-w-[1280px] mx-auto px-4 md:px-8 py-8 md:py-12">
+  <div class="gold-card rounded-[18px] overflow-hidden p-2 md:p-3">
+    <div class="border border-[#E8D5A3] rounded-[12px] overflow-hidden bg-[#FFFBF0]">
+      
+      <!-- Hero Image Area -->
+      <div class="relative h-[520px] md:h-[600px] bg-[#2B1B12] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-90" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#2B1B12]/80 via-[#2B1B12]/20 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#FFFBF0]/5 via-transparent to-transparent"></div>
+        
+        <!-- Floating Luxury Card -->
+        <div class="absolute left-6 md:left-12 bottom-8 md:bottom-12 max-w-[520px]">
+          <div class="bg-[#FFFBF0]/95 backdrop-blur-md border border-[#E8D5A3] rounded-[14px] p-7 md:p-9 shadow-[0_20px_60px_rgba(43,27,18,0.25)]">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-[#8B6914] font-bold mb-3">Est. Luxury 2026</p>
+            <h2 class="font-serif text-[38px] md:text-[54px] leading-[0.9] font-bold text-[#2B1B12]">A Golden<br/>Stay Awaits</h2>
+            <p class="mt-4 text-[14px] leading-[1.7] text-[#5C4A1E]/80">Experience cream-soft luxury wrapped in gold. Your private portal to timeless elegance at Terminal.</p>
+            <div class="mt-6 flex gap-3">
+              <button class="gold-btn px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase">Explore Rooms</button>
+              <button class="px-7 py-3 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase border border-[#E8D5A3] text-[#5C4A1E] bg-white/50">Virtual Tour</button>
+            </div>
+          </div>
+        </div>
 
-  <div class="card form-card" style="max-width:100%;">
-    <h3 id="roomFormTitle">Add a room</h3>
-    <form id="roomForm">
-      <div class="form-row">
-        <label for="roomNumber">Room number</label>
-        <input type="text" id="roomNumber" placeholder="e.g. 103" required>
-      </div>
-      <div class="form-row">
-        <label for="roomTypeInput">Room type</label>
-        <select id="roomTypeInput">
-          <option value="Single">Single</option>
-          <option value="Double">Double</option>
-          <option value="Suite">Suite</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label for="roomPrice">Price per night (₦)</label>
-        <input type="number" id="roomPrice" min="1" step="any" required>
-      </div>
-      <div class="form-row">
-        <label for="roomStatusInput">Status</label>
-        <select id="roomStatusInput">
-          <option value="free">free</option>
-          <option value="cleaning">cleaning</option>
-          <option value="occupied">occupied</option>
-        </select>
-      </div>
-      <button type="submit" class="btn">Save Room</button>
-      <button type="button" class="btn" id="cancelEdit" hidden style="background:#666; margin-top:8px;">Cancel edit</button>
-      <p id="roomMessage" style="margin-top:12px; font-weight:bold;"></p>
-    </form>
-  </div>
-
-  <div id="adminRoomList" class="card" style="margin-top:20px;"></div>
-
-  <h2 id="sales" style="margin-top:40px;">Sales and Reports</h2>
-  <div class="card form-card" style="max-width:100%;">
-    <div class="form-row">
-      <label for="periodSelect">Report period</label>
-      <select id="periodSelect">
-        <option value="today">Today</option>
-        <option value="month">This month</option>
-        <option value="custom">Custom range</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label for="fromDate">From</label>
-      <input type="date" id="fromDate">
-    </div>
-    <div class="form-row">
-      <label for="toDate">To</label>
-      <input type="date" id="toDate">
-    </div>
-    <p id="reportRange" style="font-weight:bold;"></p>
-  </div>
-
-  <div id="salesSummary" class="card-grid"></div>
-
-  <h3 style="margin-top:30px;">Income by payment method</h3>
-  <div id="methodBreakdown" style="margin-top:12px;"></div>
-</main>
-
-<footer>
-  <p>&copy; 2026 Hotel Portal</p>
-</footer>
-
-<script src="js/app.js"></script>
-<script src="js/admin.js"></script>
-</body>
-</html>
+        <!-- Top Gold Ornament -->
+        <div class="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
+          <div class="w-12 h-[1px] bg-[#D4AF37]"></div>
+          <div class="w-2 h-2 rotate
