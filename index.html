@@ -3,95 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terminal Hotel - Lokoja's Golden Address</title>
+<title>Terminal Hotel Lokoja - A Golden Stay Awaits</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Inter', sans-serif; background: #FFFBF0; }
-  h1,h2,h3 { font-family: 'Cormorant Garamond', serif; }
-  .gold-gradient { background: linear-gradient(135deg, #8B6914 0%, #D4AF37 100%); }
-  .cream-card { background: #FFFBF0; border: 1px solid #F3E5C0; }
-  #bookingDropdown { display: none; }
-  #bookingDropdown.active { display: block; }
-  .whatsapp-float { position: fixed; bottom: 25px; right: 25px; z-index: 999; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+ body{font-family:'Inter',sans-serif;background:#FFFBF0}
+ h1,h2{font-family:'Cormorant Garamond',serif}
+ .gold-grad{background:linear-gradient(135deg,#8B6914 0%,#D4AF37 50%,#F9E27C 100%)}
+ .gold-header{background:linear-gradient(90deg,#3D2E00 0%,#8B6914 50%,#3D2E00 100%)}
+ #bookingDropdown{display:none}
+ #bookingDropdown.active{display:block}
+ .whatsapp-float{position:fixed;bottom:25px;right:25px;z-index:9999;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(0,0,0,0.3)}
 </style>
 </head>
-<body class="text-[#2C2C2C]">
+<body>
 
-<!-- HEADER -->
-<header class="flex justify-between items-center px-8 py-5 bg-white shadow-sm sticky top-0 z-50">
-  <h1 class="text-2xl font-bold tracking-widest">TERMINAL</h1>
-  <button onclick="toggleBooking()" class="gold-gradient text-white px-6 py-2 rounded-full text-sm font-semibold">Book Now</button>
+<header class="gold-header flex justify-between items-center px-5 py-4 sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 bg-[#FFFBF0] rounded-lg flex items-center justify-center font-bold text-[#8B6914] text-lg">T</div>
+    <div class="text-white leading-none">
+      <h1 class="text-[22px] tracking-[0.2em] font-light">TERMINAL</h1>
+      <p class="text-[10px] tracking-[0.3em] opacity-70">HOTEL PORTAL • LOKOJA</p>
+    </div>
+  </div>
+  <button onclick="toggleBooking()" class="gold-grad text-black px-6 py-2 rounded-full text-[12px] font-bold tracking-widest">BOOK<br>NOW</button>
 </header>
 
-<!-- BOOKING DROPDOWN - JS SAME -->
-<div id="bookingDropdown" class="fixed top-[72px] right-8 w-[340px] bg-white p-6 rounded-2xl shadow-2xl z-50 border">
-  <h3 class="text-xl font-semibold mb-4">Book Your Stay</h3>
-  <label class="text-xs">Check-in</label>
-  <input id="checkin" type="date" class="w-full border p-2 rounded mb-3">
-  <label class="text-xs">Check-out</label>
-  <input id="checkout" type="date" class="w-full border p-2 rounded mb-3">
-  <label class="text-xs">Guests</label>
-  <select id="guests" class="w-full border p-2 rounded mb-4">
-    <option>1 Guest</option>
-    <option>2 Guests</option>
-    <option>3 Guests</option>
-    <option>4 Guests</option>
+<div id="bookingDropdown" class="fixed top-[75px] right-4 w-[340px] bg-white p-6 rounded-[20px] shadow-2xl z-50 border">
+  <h3 class="text-xl font-bold mb-4">Book - Terminal Lokoja</h3>
+  <label class="text-[10px] font-bold opacity-50">CHECK-IN</label>
+  <input id="checkin" type="date" class="w-full border p-2 rounded-xl mb-3 mt-1">
+  <label class="text-[10px] font-bold opacity-50">CHECK-OUT</label>
+  <input id="checkout" type="date" class="w-full border p-2 rounded-xl mb-3 mt-1">
+  <select id="guests" class="w-full border p-2 rounded-xl mb-4">
+    <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
   </select>
-  <button onclick="bookWhatsApp()" class="w-full gold-gradient text-white py-3 rounded-full font-semibold">Book on WhatsApp</button>
+  <button onclick="bookWhatsApp()" class="w-full gold-grad py-3 rounded-full font-bold text-sm">Book on WhatsApp</button>
+  <p class="text-[10px] text-center mt-2 opacity-40">Direct to 08071784274</p>
 </div>
 
-<!-- HERO - LOKOJA UPDATED -->
-<section class="text-center py-20 px-6 bg-gradient-to-b from-[#FFF8E1] to-[#FFFBF0]">
-  <p class="text-[9px] tracking-[0.4em] uppercase text-[#8B6914] font-bold mb-4">Lokoja's Golden Address</p>
-  <h2 class="text-6xl leading-[0.9] mb-6">Where Lokoja<br/>Comes To Rest</h2>
-  <p class="max-w-md mx-auto text-sm opacity-70 mb-8">Luxury, comfort and warm hospitality in the heart of Lokoja, Kogi State.</p>
-  <button onclick="toggleBooking()" class="gold-gradient text-white px-10 py-4 rounded-full">Explore Rooms</button>
-</section>
+<section class="px-4 py-6">
+  <div class="relative rounded-[28px] overflow-hidden border-[3px] border-[#F3E5C0] p-2">
+    <div class="relative rounded-[20px] overflow-hidden h-[580px]" style="background:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80');background-size:cover;background-position:center;">
+      
+      <div class="absolute bottom-4 left-4 right-4 bg-[#FFFBF0] rounded-[20px] p-7 shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
+        <p class="text-[11px] tracking-[0.4em] text-[#8B6914] font-bold mb-3">EST. LUXURY 2026 • LOKOJA</p>
+        <h2 class="text-[36px] leading-[0.95] font-semibold text-[#2C2C2C]">A Golden<br>Stay Awaits</h2>
+        <p class="text-[14px] leading-6 mt-4 opacity-60">Experience cream-soft luxury wrapped in gold. Your private portal to timeless elegance at Terminal Lokoja, Confluence City.</p>
+        <div class="flex gap-3 mt-6">
+          <button onclick="document.getElementById('rooms').scrollIntoView({behavior:'smooth'})" class="gold-grad text-black px-6 py-4 rounded-full text-[12px] font-bold tracking-widest leading-tight">EXPLORE<br>ROOMS</button>
+          <button class="border border-[#E8D9A8] bg-white px-6 py-4 rounded-full text-[12px] font-bold tracking-widest leading-tight">VIRTUAL<br>TOUR</button>
+        </div>
+      </div>
 
-<!-- ROOMS -->
-<section class="px-8 py-16 grid md:grid-cols-3 gap-6">
-  <div class="cream-card p-6 rounded-2xl">
-    <h3 class="text-2xl">Deluxe Room</h3>
-    <p class="text-sm mt-2 opacity-60">Perfect for business trips</p>
-    <p class="mt-4 font-bold text-[#8B6914]">₦45,000 / night</p>
-  </div>
-  <div class="cream-card p-6 rounded-2xl">
-    <h3 class="text-2xl">Gold Suite</h3>
-    <p class="text-sm mt-2 opacity-60">Spacious with lounge</p>
-    <p class="mt-4 font-bold text-[#8B6914]">₦85,000 / night</p>
-  </div>
-  <div class="cream-card p-6 rounded-2xl">
-    <h3 class="text-2xl">Presidential</h3>
-    <p class="text-sm mt-2 opacity-60">Ultimate luxury experience</p>
-    <p class="mt-4 font-bold text-[#8B6914]">₦150,000 / night</p>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT - LOKOJA UPDATED -->
-<section class="text-center py-12 bg-white border-t">
-  <h3 class="text-2xl">Terminal Hotel Lokoja</h3>
-  <p class="text-[12px] mt-2">Plot 123, Ganaja Road, Lokoja<br/>hello@terminalhotel.com | 08071784274</p>
+<section id="rooms" class="px-6 py-10 grid md:grid-cols-3 gap-4">
+  <div class="bg-white border border-[#F3E5C0] p-6 rounded-2xl"><h3 class="text-xl font-bold">Deluxe Room</h3><p class="text-xs opacity-50 mt-1">Lokoja City View</p><p class="mt-3 font-bold text-[#8B6914]">₦45,000 / night</p></div>
+  <div class="bg-[#2C2C2C] text-white p-6 rounded-2xl"><h3 class="text-xl">Gold Suite</h3><p class="text-xs opacity-50 mt-1">Most Popular</p><p class="mt-3 font-bold text-[#D4AF37]">₦85,000 / night</p></div>
+  <div class="bg-white border border-[#F3E5C0] p-6 rounded-2xl"><h3 class="text-xl font-bold">Presidential</h3><p class="text-xs opacity-50 mt-1">Private Terrace</p><p class="mt-3 font-bold text-[#8B6914]">₦150,000 / night</p></div>
 </section>
 
-<!-- FLOATING WHATSAPP - JS SAME -->
+<footer class="text-center py-8 text-[11px] opacity-40 border-t">
+  Terminal Hotel Lokoja • Plot 123, Ganaja Road • 08071784274
+</footer>
+
 <a href="https://wa.me/2348071784274?text=Hello%20Terminal%20Hotel%20Lokoja%2C%20I%20want%20to%20book" class="whatsapp-float" target="_blank">
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M19.05 4.94A9.91 9.91 0 0 0 12.04 2C6.52 2 2.04 6.48 2.04 12a9.9 9.9 0 0 0 1.48 5.19L2 22l4.96-1.5A9.9 9.9 0 0 0 12.04 22c5.52 0 10-4.48 10-10a9.9 9.9 0 0 0-2.99-7.06zM12.04 20a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-2.94.89.9-2.87-.2-.3A8.18 8.18 0 0 1 3.84 12c0-4.54 3.7-8.24 8.2-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.42 5.82c0 4.54-3.7 8-8.22 8zm4.5-6.15c-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.57.13-.17.25-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.39.11-.52.11-.11.25-.3.38-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.57-1.37-.78-1.88-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.19.21-.58.21-1.08.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.05 4.94A9.91 9.91 0 0 0 12.04 2C6.52 2 2.04 6.48 2.04 12a9.9 9.9 0 0 0 1.48 5.19L2 22l4.96-1.5A9.9 9.9 0 0 0 12.04 22c5.52 0 10-4.48 10-10a9.9 9.9 0 0 0-2.99-7.06zM12.04 20a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-2.94.89.9-2.87-.2-.3A8.18 8.18 0 0 1 3.84 12c0-4.54 3.7-8.24 8.2-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.42 5.82c0 4.54-3.7 8-8.22 8zm4.5-6.15c-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.57.13-.17.25-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.39.11-.52.11-.11.25-.3.38-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.57-1.37-.78-1.88-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.19.21-.58.21-1.08.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
 </a>
 
-<!-- JAVASCRIPT SAME - NOT CHANGED -->
 <script>
-function toggleBooking() {
+function toggleBooking(){
   document.getElementById('bookingDropdown').classList.toggle('active');
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('checkin').value = today;
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('checkin').value=today;
 }
-function bookWhatsApp() {
-  const checkin = document.getElementById('checkin').value;
-  const checkout = document.getElementById('checkout').value;
-  const guests = document.getElementById('guests').value;
-  const msg = `Hello Terminal Hotel Lokoja, I want to book:%0ACheck-in: ${checkin}%0ACheck-out: ${checkout}%0AGuests: ${guests}`;
-  window.open(`https://wa.me/2348071784274?text=${msg}`, '_blank');
+function bookWhatsApp(){
+  const ci=document.getElementById('checkin').value;
+  const co=document.getElementById('checkout').value;
+  const g=document.getElementById('guests').value;
+  const msg=`Hello Terminal Hotel Lokoja!%0A%0AI want to book:%0ACheck-in: ${ci}%0ACheck-out: ${co}%0A${g}%0A%0APlease confirm.`;
+  window.open(`https://wa.me/2348071784274?text=${msg}`,'_blank');
 }
 </script>
 </body>
